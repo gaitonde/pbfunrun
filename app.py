@@ -17,26 +17,38 @@ def next():
 
 
 conn = st.connection("gsheets", type=GSheetsConnection)
-url = "https://docs.google.com/spreadsheets/d/1fQz2Ix6heBb8ORtGFsNqcPodfM79a-29_9WMWHcEJR0/edit#gid=1446078968"
-df = conn.read(spreadsheet=url, ttl="1m")
-prompts = df.set_index("name").to_dict()["prompt"]
+# url = "https://docs.google.com/spreadsheets/d/1fQz2Ix6heBb8ORtGFsNqcPodfM79a-29_9WMWHcEJR0/edit#gid=1446078968"
+# df = conn.read(spreadsheet=url, ttl="1m")
+
+
+# Read Google WorkSheet as DataFrame
+df = conn.read(
+    worksheet="Example 1",
+    # usecols=[
+    #     0,
+    #     1,
+    # ],  # specify columns which you want to get, comment this out to get all columns
+)
+st.dataframe(df)
+
+# prompts = df.set_index("name").to_dict()["prompt"]
 
 # st.write(prompts["present_levels_feedback"])
 
-st.header("Prompts from Google Spreadsheet")
+# st.header("Prompts from Google Spreadsheet")
 
-for i, row in enumerate(df.itertuples(), 1):
-    st.divider()
-    st.markdown(f"{i}: {row.name}")
-    st.markdown(f"{row.prompt}")
+# for i, row in enumerate(df.itertuples(), 1):
+#     st.divider()
+#     st.markdown(f"{i}: {row.name}")
+#     st.markdown(f"{row.prompt}")
 
-with st.form("select_llm"):
-    text_input = st.text_input(
-        "Name 👇",
-        key="participant_name",
-        # label_visibility=st.session_state.visibility,
-        # disabled=st.session_state.disabled,
-        # placeholder=st.session_state.placeholder,
-    )
+# with st.form("select_llm"):
+#     text_input = st.text_input(
+#         "Name 👇",
+#         key="participant_name",
+#         # label_visibility=st.session_state.visibility,
+#         # disabled=st.session_state.disabled,
+#         # placeholder=st.session_state.placeholder,
+#     )
 
-    st.form_submit_button("🚀 Start writing IEP Goals", on_click=next)
+#     st.form_submit_button("🚀 Start writing IEP Goals", on_click=next)

@@ -118,7 +118,9 @@ with st.echo():
         10.0, 11.0, 12.0,   orange
         13.0, 14.0, 15.0,   pink
     """
-    df = pd.read_csv(StringIO(TESTDATA), index_col=-1, sep=r",\s*", engine='python')
+    # df = pd.read_csv(StringIO(TESTDATA), index_col=-1, sep=r",\s*", engine='python')
+    df = psql.load_births()
+
 
     # click button to update worksheet
     # This is behind a button to avoid exceeding Google API Quota
@@ -181,7 +183,8 @@ with st.echo():
         113.0, 114.0, 115.0,   1pink
     """
     # df = pd.read_csv(StringIO(TESTDATA), index_col=-1, sep=r",\s*", engine='python')
-    df = psql.load_births()
+    # df = psql.load_births()
+    df = psql.load_meat()
 
 
     # click button to update worksheet
